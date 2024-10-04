@@ -1,0 +1,25 @@
+@if (isLoading$ | async) {
+<app-loading></app-loading>
+} @else if ((cats$ | async)?.length) {
+<mat-grid-list cols="3" rowHeight="1:1">
+  @for (cat of cats$ | async; track $index) {
+  <mat-grid-tile>
+    <mat-card class="mat-mdc-card">
+      <img
+        mat-card-image
+        class="mat-mdc-card-image"
+        [src]="cat.url"
+        alt="Cat image"
+      />
+      <mat-card-content class="mat-mdc-card-content">
+        <p>
+          Breed: {{ cat.breeds.length >= 1 ? cat.breeds[0].name : "Unknown" }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  }
+</mat-grid-list>
+} @else {
+<p class="no-results">No cats found. Try searching for cats!</p>
+}
